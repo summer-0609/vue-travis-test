@@ -3,6 +3,9 @@ node_js: stable
 branches:
   only:
   - master
+addons:
+  ssh_known_hosts:
+  - 47.116.3.37
 install:
 - npm install
 script:
@@ -13,4 +16,4 @@ before_install:
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host 主机IP\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
-- rsync -az --delete ./dist/* root@47.116.3.37:/
+- rsync -az --delete ./dist/* root@47.116.3.37:/dist
