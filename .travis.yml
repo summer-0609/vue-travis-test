@@ -3,10 +3,14 @@ node_js: stable
 branches:
   only:
   - master
-addons:
-  ssh_known_hosts:
-  - <HOST>
 install:
 - npm install
 script:
-- npm run serve
+- npm run build
+before_install:
+- openssl aes-256-cbc -K $encrypted_a73ff1202906_key -iv $encrypted_a73ff1202906_iv
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+- echo -e "Host 主机IP\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+after_success:
+- rsync -az --delete ./dist/* root@47.116.3.37:/
