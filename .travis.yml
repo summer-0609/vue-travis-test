@@ -5,7 +5,7 @@ branches:
   - master
 addons:
   ssh_known_hosts:
-  - 47.116.3.37
+    - 47.116.3.37
 install:
 - npm install
 script:
